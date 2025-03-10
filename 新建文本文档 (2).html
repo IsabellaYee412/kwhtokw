@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        input[type="number"]:focus, input[type="text"]:focus {
+            border-color: #0073e6;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 115, 230, 0.5);
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px 0;
+            width: 100%;
+            cursor: pointer;
+            background-color: #0073e6;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #005bb5;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <label for="energy">Energy (kWh):</label>
+        <input type="number" id="energy">
+
+        <label for="hours">Working Hours (h):</label>
+        <input type="number" id="hours">
+
+        <button onclick="calculatePower()">Calculate To kW</button>
+        <button onclick="resetFields()">Reset</button>
+
+        <div class="result">
+            <label for="power">Power (kW):</label>
+            <input type="text" id="power" readonly>
+        </div>
+    </div>
+
+    <script>
+        // 确保页面加载完成后再绑定函数
+        document.addEventListener('DOMContentLoaded', function () {
+            window.calculatePower = function () {
+                const energy = parseFloat(document.getElementById('energy').value);
+                const hours = parseFloat(document.getElementById('hours').value);
+
+                if (isNaN(energy) || isNaN(hours) || hours === 0) {
+                    alert("Please enter valid numbers for energy and working hours.");
+                    return;
+                }
+
+                const power = energy / hours;
+                document.getElementById('power').value = power.toFixed(2);
+            };
+
+            window.resetFields = function () {
+                document.getElementById('energy').value = '';
+                document.getElementById('hours').value = '';
+                document.getElementById('power').value = '';
+            };
+        });
+    </script>
+</body>
+</html>
